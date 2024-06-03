@@ -80,6 +80,21 @@ export async function getInitialURL(): Promise<string | null> {
   return (await NativeLinking.getInitialURL()) ?? null;
 }
 
+/**
+ * Get the URL that was used to launch the app if it was launched by a link.
+ * @return The URL string that launched your app, or `null`.
+ */
+export function getLinkingURL(): string | null {
+  return NativeLinking.getLinkingURL();
+}
+/**
+ * Clear the URL that was used to launch the app if it was launched by a link.
+ * @return The URL string that launched your app, or `null`.
+ */
+export function clearLinkingURL() {
+  return NativeLinking.clearLinkingURL();
+}
+
 // @needsAudit
 /**
  * Attempt to open the given URL with an installed app. See the [Linking guide](/guides/linking)
@@ -123,8 +138,28 @@ export function useURL(): string | null {
   }
 
   useEffect(() => {
-    getInitialURL().then((url) => setLink(url));
     const subscription = addEventListener('url', onChange);
+    return () => subscription.remove();
+  }, []);
+
+  return url;
+}
+
+/**
+ * Returns the linking URL followed by any subsequent changes to the URL.
+ * Correctly parses expo links in various schemes.
+ * Always returns the initial URL immediately on reload.
+ * @return Returns the initial URL or `null`.
+ */
+export function useLinkingURL(): string | null {
+  const [url, setLink] = useState<string | null>(NativeLinking.getLinkingURL);
+
+  function onChange(event: { url: string }) {
+    setLink(event.url);
+  }
+
+  useEffect(() => {
+    const subscription = NativeLinking.addListener('onURLReceived', onChange);
     return () => subscription.remove();
   }, []);
 
