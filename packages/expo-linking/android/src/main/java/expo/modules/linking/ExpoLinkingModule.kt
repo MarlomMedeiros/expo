@@ -8,7 +8,6 @@ import expo.modules.kotlin.modules.ModuleDefinition
 class ExpoLinkingModule : Module() {
   companion object {
     var initialURL: Uri? = null;
-    // store a callback in a variable
     var onURLReceived: ((Uri?) -> Unit)? = null
   }
 
