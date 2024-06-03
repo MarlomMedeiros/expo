@@ -20,11 +20,11 @@ public class AppLifecycleDelegate: ExpoAppDelegateSubscriber {
   public func applicationWillTerminate(_ application: UIApplication) {
     // The app is about to terminate.
   }
-  public func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+  public func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
     ExpoLinkingRegistry.shared.initialURL = url
     if let callback = ExpoLinkingRegistry.shared.onURLReceived {
       callback(url)
     }
-    return true;
+    return true
   }
 }

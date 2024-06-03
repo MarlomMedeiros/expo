@@ -9,19 +9,19 @@ public class ExpoLinkingModule: Module {
     // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
     // The module will be accessible from `requireNativeModule('ExpoLinking')` in JavaScript.
     Name("ExpoLinking")
-    
+
     Events("onURLReceived")
-    
+
     OnStartObserving("onURLReceived") {
       ExpoLinkingRegistry.shared.onURLReceived = { url in
         self.sendEvent("onURLReceived", ["url": self.parseExpoLink(url)])
       }
     }
-    
+
     OnStopObserving {
       ExpoLinkingRegistry.shared.callback = nil
     }
-    
+
     // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
     Function("getLinkingURL") {
       return parseExpoLink(ExpoLinkingRegistry.shared.initialURL)
@@ -30,7 +30,7 @@ public class ExpoLinkingModule: Module {
       ExpoLinkingRegistry.shared.initialURL = nil
     }
   }
-  
+
   func parseExpoLink(_ url: URL?) -> String? {
     guard let url = url else {
       return nil

@@ -7,7 +7,7 @@ import expo.modules.kotlin.modules.ModuleDefinition
 
 class ExpoLinkingModule : Module() {
   companion object {
-    var initialURL: Uri? = null;
+    var initialURL: Uri? = null
     var onURLReceived: ((Uri?) -> Unit)? = null
   }
 
@@ -35,7 +35,7 @@ class ExpoLinkingModule : Module() {
   }
 
   private fun parseExpoLink(url: Uri?): String? {
-    if(url == null) {
+    if (url == null) {
       return null
     }
     // Parse the URL and return the parsed URL
