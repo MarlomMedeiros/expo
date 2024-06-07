@@ -19,7 +19,7 @@ public class ExpoLinkingModule: Module {
     }
 
     OnStopObserving {
-      ExpoLinkingRegistry.shared.callback = nil
+      ExpoLinkingRegistry.shared.onURLReceived = nil
     }
 
     // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.

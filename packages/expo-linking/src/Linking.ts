@@ -2,8 +2,9 @@ import { UnavailabilityError } from 'expo-modules-core';
 import { useEffect, useState } from 'react';
 import { EmitterSubscription, Platform } from 'react-native';
 
-import NativeLinking from './NativeLinking';
+import ExpoLinking from './ExpoLinking';
 import { ParsedURL, SendIntentExtras, URLListener } from './Linking.types';
+import NativeLinking from './RNLinking';
 import { parse } from './createURL';
 import { validateURL } from './validateURL';
 
@@ -85,14 +86,14 @@ export async function getInitialURL(): Promise<string | null> {
  * @return The URL string that launched your app, or `null`.
  */
 export function getLinkingURL(): string | null {
-  return NativeLinking.getLinkingURL();
+  return ExpoLinking.getLinkingURL();
 }
 /**
  * Clear the URL that was used to launch the app if it was launched by a link.
  * @return The URL string that launched your app, or `null`.
  */
 export function clearLinkingURL() {
-  return NativeLinking.clearLinkingURL();
+  return ExpoLinking.clearLinkingURL();
 }
 
 // @needsAudit
@@ -152,14 +153,15 @@ export function useURL(): string | null {
  * @return Returns the initial URL or `null`.
  */
 export function useLinkingURL(): string | null {
-  const [url, setLink] = useState<string | null>(NativeLinking.getLinkingURL);
+  const [url, setLink] = useState<string | null>(ExpoLinking.getLinkingURL);
 
   function onChange(event: { url: string }) {
+    console.warn('onChange', event);
     setLink(event.url);
   }
 
   useEffect(() => {
-    const subscription = NativeLinking.addListener('onURLReceived', onChange);
+    const subscription = ExpoLinking.addListener('onURLReceived', onChange as any);
     return () => subscription.remove();
   }, []);
 
