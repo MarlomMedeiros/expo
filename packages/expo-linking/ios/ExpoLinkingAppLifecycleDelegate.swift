@@ -1,6 +1,6 @@
 import ExpoModulesCore
 
-public class AppLifecycleDelegate: ExpoAppDelegateSubscriber {
+public class ExpoLinkingAppLifecycleDelegate: ExpoAppDelegateSubscriber {
   public func applicationDidBecomeActive(_ application: UIApplication) {
     // The app has become active.
   }
