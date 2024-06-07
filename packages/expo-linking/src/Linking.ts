@@ -2,7 +2,7 @@ import { UnavailabilityError } from 'expo-modules-core';
 import { useEffect, useState } from 'react';
 import { EmitterSubscription, Platform } from 'react-native';
 
-import NativeLinking from './ExpoLinking';
+import NativeLinking from './NativeLinking';
 import { ParsedURL, SendIntentExtras, URLListener } from './Linking.types';
 import { parse } from './createURL';
 import { validateURL } from './validateURL';
