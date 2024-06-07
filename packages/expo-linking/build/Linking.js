@@ -1,7 +1,8 @@
 import { UnavailabilityError } from 'expo-modules-core';
 import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
-import NativeLinking from './ExpoLinking';
+import ExpoLinking from './ExpoLinking';
+import NativeLinking from './RNLinking';
 import { parse } from './createURL';
 import { validateURL } from './validateURL';
 // @needsAudit
@@ -76,14 +77,14 @@ export async function getInitialURL() {
  * @return The URL string that launched your app, or `null`.
  */
 export function getLinkingURL() {
-    return NativeLinking.getLinkingURL();
+    return ExpoLinking.getLinkingURL();
 }
 /**
  * Clear the URL that was used to launch the app if it was launched by a link.
  * @return The URL string that launched your app, or `null`.
  */
 export function clearLinkingURL() {
-    return NativeLinking.clearLinkingURL();
+    return ExpoLinking.clearLinkingURL();
 }
 // @needsAudit
 /**
@@ -136,12 +137,13 @@ export function useURL() {
  * @return Returns the initial URL or `null`.
  */
 export function useLinkingURL() {
-    const [url, setLink] = useState(NativeLinking.getLinkingURL);
+    const [url, setLink] = useState(ExpoLinking.getLinkingURL);
     function onChange(event) {
+        console.warn('onChange', event);
         setLink(event.url);
     }
     useEffect(() => {
-        const subscription = NativeLinking.addListener('onURLReceived', onChange);
+        const subscription = ExpoLinking.addListener('onURLReceived', onChange);
         return () => subscription.remove();
     }, []);
     return url;
