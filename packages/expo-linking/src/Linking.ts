@@ -139,6 +139,7 @@ export function useURL(): string | null {
   }
 
   useEffect(() => {
+    getInitialURL().then((url) => setLink(url));
     const subscription = addEventListener('url', onChange);
     return () => subscription.remove();
   }, []);
