@@ -36,7 +36,7 @@
     "fs-extra": "9.0.0",
     "getenv": "^1.0.0",
     "jimp-compact": "0.16.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.2.10",
     "parse-png": "^2.1.0",
     "resolve-from": "^5.0.0",
     "semver": "^7.6.0",

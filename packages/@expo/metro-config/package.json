@@ -49,7 +49,7 @@
     "glob": "^7.2.3",
     "jsc-safe-url": "^0.2.4",
     "lightningcss": "~1.19.0",
-    "postcss": "~8.4.32",
+    "postcss": "~8.4.34",
     "resolve-from": "^5.0.0"
   },
   "devDependencies": {
